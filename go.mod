@@ -1,6 +1,6 @@
 module github.com/mklfarha/sarama-fx
 
-go 1.21.3
+go 1.21
 
 require (
 	github.com/IBM/sarama v1.41.3
