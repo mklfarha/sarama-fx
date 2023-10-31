@@ -1,4 +1,4 @@
-#sarama fx
+# sarama fx
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/mklfarha/sarama-fx.svg)](https://pkg.go.dev/github.com/mklfarha/sarama-fx)
 
