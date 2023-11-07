@@ -1,6 +1,7 @@
 package saramafx
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/IBM/sarama"
@@ -13,6 +14,9 @@ type SendMessageRequest struct {
 
 // SendMessage sends a message to the specified kafka topic
 func (kc Client) SendMessage(req SendMessageRequest) error {
+	if kc.producer == nil {
+		return errors.New("saramafx producer is nil")
+	}
 	msg := &sarama.ProducerMessage{
 		Topic: req.Topic,
 		Value: sarama.StringEncoder(req.Message),

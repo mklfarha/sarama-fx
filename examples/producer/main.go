@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	saramafx "github.com/mklfarha/sarama-fx"
 	"github.com/spf13/viper"
@@ -35,7 +36,11 @@ func NewKafkaProducer(sc *saramafx.Client) kafkaProducer {
 		client: sc,
 	}
 	// producing for testing purposes
-	producer.Produce()
+	go func() {
+		// we need to wait for the prodcuer to be created
+		time.Sleep(1 * time.Second)
+		producer.Produce()
+	}()
 	return producer
 }
 

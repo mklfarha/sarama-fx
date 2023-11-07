@@ -1,8 +1,6 @@
 package saramafx
 
 import (
-	"time"
-
 	"github.com/IBM/sarama"
 	"go.uber.org/fx"
 )
@@ -27,22 +25,8 @@ type Params struct {
 
 // New sarama fx client
 func New(params Params) (*Client, error) {
-	// TODO: make the timeout configurable
-	producer, err := newProducerWithTimeout(params.Config, 2*time.Second)
-	if err != nil {
-		return nil, err
-	}
-
-	// TODO: make the timeout configurable
-	group, err := newConsumerGroupWithTimeout(params.Config, 2*time.Second)
-	if err != nil {
-		return nil, err
-	}
-
 	kc := Client{
 		config:               params.Config,
-		producer:             producer,
-		group:                group,
 		consumerGroupHandler: params.Handler,
 	}
 	return &kc, nil
