@@ -27,7 +27,7 @@ type Params struct {
 // New sarama fx client
 func New(params Params) (*Client, error) {
 	c := Config{}
-	err := params.ConfigProvider.Get("events.transport-config.kafka").Populate(&c)
+	err := params.ConfigProvider.Get("kafka").Populate(&c)
 	if err != nil {
 		return nil, err
 	}

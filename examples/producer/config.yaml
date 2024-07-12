@@ -1,8 +1,6 @@
-events:
-  transport-config:
-    kafka:
-      version: 3.6.0      
-      brokers:
-        - localhost:9092    
-      topics:
-        - test
+kafka:
+  version: 3.6.0      
+  brokers:
+    - localhost:9092    
+  topics:
+    - test

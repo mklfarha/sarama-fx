@@ -1,9 +1,7 @@
-events:
-  transport-config:
-    kafka:
-      version: 3.6.0
-      consumer_group_id: test-group
-      brokers:
-        - localhost:9092    
-      topics:
-        - test
+kafka:
+  version: 3.6.0
+  consumer_group_id: test-group
+  brokers:
+    - localhost:9092    
+  topics:
+    - test
