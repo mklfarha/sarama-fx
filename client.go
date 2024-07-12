@@ -2,6 +2,7 @@ package saramafx
 
 import (
 	"github.com/IBM/sarama"
+	"go.uber.org/config"
 	"go.uber.org/fx"
 )
 
@@ -17,16 +18,21 @@ type Client struct {
 type Params struct {
 	fx.In
 
-	Lifecycle fx.Lifecycle
-	Config    Config
+	Lifecycle      fx.Lifecycle
+	ConfigProvider config.Provider
 	// ConsumerGroupHandler needs to be provided by the user of the library
 	Handler sarama.ConsumerGroupHandler `optional:"true"`
 }
 
 // New sarama fx client
 func New(params Params) (*Client, error) {
+	c := Config{}
+	err := params.ConfigProvider.Get("events.transport-config.kafka").Populate(&c)
+	if err != nil {
+		return nil, err
+	}
 	kc := Client{
-		config:               params.Config,
+		config:               c,
 		consumerGroupHandler: params.Handler,
 	}
 	return &kc, nil

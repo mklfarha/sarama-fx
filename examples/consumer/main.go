@@ -1,33 +1,30 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/IBM/sarama"
 	saramafx "github.com/mklfarha/sarama-fx"
-	"github.com/spf13/viper"
+	"go.uber.org/config"
 	"go.uber.org/fx"
 )
 
 func main() {
-	initConfig()
 	fx.New(
 		fx.Provide(
 			NewKafkaHandler,
+			NewConfig,
 		),
 		saramafx.Module,
 	).Run()
 }
 
-func initConfig() {
-	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath(".")
-	err := viper.ReadInConfig()
+func NewConfig() config.Provider {
+	yaml, err := config.NewYAML(config.File("./config.yaml"))
 	if err != nil {
-		panic(fmt.Errorf("fatal error config file: %w", err))
+		panic("error reading config")
 	}
+	return yaml
 }
 
 type kafkaHandler struct {
